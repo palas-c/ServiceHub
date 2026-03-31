@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [role, setRole] = useState("customer");
+  const navigate = useNavigate();
 
   return (
     <>
@@ -202,7 +204,7 @@ export default function Login() {
           <button className="social"><img src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-index-content-uploads-10.png" alt="apple"/>Continue with Apple</button>
 
           <div className="signup">
-            Don't have an account? <span>Sign Up</span>
+            Don't have an account?{ " "} <span on onClick={() => navigate("/signup")}>Signup</span>
           </div>
 
         </div>
