@@ -2,12 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import API from "../services/api";
-import SocialLogin from "../components/auth/SocialLogin";
-import { useAuth } from "../context/AuthContext"; // ✅ ADD THIS
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ ADD THIS
+  const { login } = useAuth();
 
   const [role, setRole] = useState("customer");
 
@@ -33,12 +32,10 @@ function Login() {
     try {
       setLoading(true);
 
-      // 🔥 LOGIN API
       const res = await API.post("/auth/login", formData);
 
       const { user, token } = res.data;
 
-      // 🔐 ROLE VALIDATION
       if (user.role !== role) {
         setError(
           `This account is registered as ${user.role}. Please switch role.`
@@ -47,10 +44,8 @@ function Login() {
         return;
       }
 
-      // ✅ USE CONTEXT (INSTEAD OF localStorage)
       login(user, token);
 
-      // 🔥 REDIRECT
       if (user.role === "vendor") {
         navigate("/vendor-dashboard");
       } else {
@@ -62,6 +57,12 @@ function Login() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // 🔥 GOOGLE LOGIN
+  const handleGoogleLogin = () => {
+    window.location.href =
+      "http://localhost:5000/api/auth/google";
   };
 
   return (
@@ -153,8 +154,13 @@ function Login() {
             </span>
           </p>
 
-          {/* SOCIAL LOGIN */}
-          <SocialLogin />
+          {/* 🔥 GOOGLE BUTTON */}
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full mt-6 bg-red-500 text-white py-3 rounded-lg hover:bg-red-600"
+          >
+            Continue with Google
+          </button>
 
         </div>
       </div>

@@ -8,6 +8,7 @@ import Booking from "./pages/Booking";
 import UserDashboard from "./pages/UserDashboard";
 import VendorDashboard from "./pages/VendorDashboard";
 import Signup from "./pages/Signup";
+import OAuthSuccess from "./pages/OAuthSuccess";
 
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
@@ -40,6 +41,10 @@ function App() {
               <UserDashboard />
             </ProtectedRoute>
           }
+        />
+        <Route
+        path="/oauth-success"
+          element={<OAuthSuccess />}
         />
 
         <Route
