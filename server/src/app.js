@@ -65,11 +65,11 @@ app.use(
 app.set("trust proxy", 1);
 
 // =====================
-// 🔐 SESSION (FINAL FIX)
+// 🔐 SESSION ()
 // =====================
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "servicehub_fallback_secret",
+    secret: process.env.SESSION_SECRET || "10538be78e1cee275f4edad3382f047c",
     resave: false,
     saveUninitialized: false,
     cookie: {
