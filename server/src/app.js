@@ -47,34 +47,35 @@ app.use(xss());
 app.use(hpp());
 
 // =====================
-// 🔐 CORS
+// 🔐 CORS (FIXED)
 // =====================
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN,
+    origin: [
+      process.env.CLIENT_ORIGIN,
+      "https://service-hub-eosin-three.vercel.app",
+    ],
     credentials: true,
   })
 );
 
 // =====================
-// 🔥 TRUST PROXY (IMPORTANT FOR RENDER)
+// 🔥 TRUST PROXY (IMPORTANT)
 // =====================
 app.set("trust proxy", 1);
 
-
 // =====================
-// 🔐 SESSION (FIXED)
+// 🔐 SESSION (FINAL FIX)
 // =====================
-console.log("SESSION_SECRET:", process.env.SESSION_SECRET);
-
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "servicehub_fallback_secret",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: false, // 🔥 important for Render
       httpOnly: true,
+      sameSite: "lax",
     },
   })
 );
