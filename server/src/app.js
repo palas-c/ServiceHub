@@ -57,7 +57,12 @@ app.use(
 );
 
 // =====================
-// SESSION
+// 🔥 TRUST PROXY (IMPORTANT FOR RENDER)
+// =====================
+app.set("trust proxy", 1);
+
+// =====================
+// 🔐 SESSION (FIXED)
 // =====================
 app.use(
   session({
@@ -65,14 +70,14 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
     },
   })
 );
 
 // =====================
-// PASSPORT
+// 🔐 PASSPORT
 // =====================
 app.use(passport.initialize());
 app.use(passport.session());
