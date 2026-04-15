@@ -61,7 +61,7 @@ app.use(
 // =====================
 app.use(
   session({
-    secret: process.env.JWT_SECRET,
+    secret: process.env.SESSION_SECRET || "servicehub_fallback_secret",
     resave: false,
     saveUninitialized: false,
     cookie: {
