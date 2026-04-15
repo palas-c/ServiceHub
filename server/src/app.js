@@ -61,9 +61,12 @@ app.use(
 // =====================
 app.set("trust proxy", 1);
 
+
 // =====================
 // 🔐 SESSION (FIXED)
 // =====================
+console.log("SESSION_SECRET:", process.env.SESSION_SECRET);
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "servicehub_fallback_secret",
